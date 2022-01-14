@@ -2,6 +2,8 @@ package me.vanilar.projects.strike.listener;
 
 import me.vanilar.projects.strike.StrikeGame;
 import me.vanilar.projects.strike.teams.TeamSelectGui;
+import me.vanilar.projects.strike.utils.Message;
+import me.vanilar.projects.strike.utils.Messager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -23,6 +25,8 @@ import java.util.HashMap;
 
 public class MainListener implements Listener {
     private HashMap<String, TeamSelectGui> guis = new HashMap<>();
+    private Messager messager = StrikeGame.getInstance().getMessager();
+    private final String PREFIX = messager.getMessage(Message.PLUGIN_PREFIX);
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
@@ -30,7 +34,7 @@ public class MainListener implements Listener {
         event.setJoinMessage(null);
         if(Bukkit.getServer().getOnlinePlayers().size() > (Bukkit.getMaxPlayers() - 1)) {
             if(!player.hasPermission("strike.entry.bypass")) {
-                player.kickPlayer("§fСервер §a§lпереполнен§r§f!");
+                player.kickPlayer(messager.getMessage(Message.SERVER_IS_FULL));
                 return;
             }
         }
@@ -69,16 +73,16 @@ public class MainListener implements Listener {
 
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event) {
-        Inventory gui = event.getView().getTopInventory();
         HumanEntity player = event.getPlayer();
-        if(gui.getTitle().equals("Выберите команду")) {
-            player.sendMessage("§f[§aStrike§f] Через §a5 §fсекунд меню откроется §aвновь");
+        if(event.getView().getTitle().equals(messager.getMessage(Message.CHOOSE_COMMAND))) {
+            int seconds = 5;
+            player.sendMessage(PREFIX+" "+String.format(messager.getMessage(Message.REOPEN_CHOOSE_COMMAND_MENU), seconds));
             new BukkitRunnable(){
                 @Override
                 public void run() {
                     player.openInventory(guis.get(player.getName()).getGui());
                 }
-            }.runTaskLater(StrikeGame.getInstance(), 100L);
+            }.runTaskLater(StrikeGame.getInstance(), (20L*seconds));
         }
     }
 
@@ -86,7 +90,7 @@ public class MainListener implements Listener {
     public void onInventoryClick(InventoryClickEvent event) {
         Inventory gui = event.getView().getTopInventory();
         HumanEntity player = event.getWhoClicked();
-        if(gui.getName().equals("Выберите команду")) {
+        if(event.getView().getTitle().equals(messager.getMessage(Message.CHOOSE_COMMAND))) {
             int clickedSlot = event.getRawSlot();
             if((clickedSlot > gui.getSize()-1) || clickedSlot < 0) {
                 event.setCancelled(true);
@@ -96,13 +100,13 @@ public class MainListener implements Listener {
             if(button != null) {
 
                 if(button.getType() == Material.IRON_HELMET) {
-                    player.sendMessage("§f[§aStrike§f] Вы выбрали команду §aконтртеррористов");
+                    player.sendMessage(PREFIX+" "+messager.getMessage(Message.PLAYER_CHOOSE_COUNTER_TERRORISTS_COMMAND));
                 }
                 else if(button.getType() == Material.LEATHER_HELMET) {
-                    player.sendMessage("§f[§aStrike§f] Вы выбрали команду §aтеррористов");
+                    player.sendMessage(PREFIX+" "+messager.getMessage(Message.PLAYER_CHOOSE_TERRORISTS_COMMAND));
                 }
-                else if(button.getType() == Material.EYE_OF_ENDER) {
-                    player.sendMessage("§f[§aStrike§f] Вы выбрали команду §aзрителей");
+                else if(button.getType() == Material.ENDER_EYE) {
+                    player.sendMessage(PREFIX+" "+messager.getMessage(Message.PLAYER_CHOOSE_VIEWERS_COMMAND));
                 }
                 guis.get(player.getName()).stopUpdatingGui();
             }

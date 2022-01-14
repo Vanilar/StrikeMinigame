@@ -1,6 +1,8 @@
 package me.vanilar.projects.strike.teams;
 
 import me.vanilar.projects.strike.StrikeGame;
+import me.vanilar.projects.strike.utils.Message;
+import me.vanilar.projects.strike.utils.Messager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -23,11 +25,12 @@ public class TeamSelectGui {
     private TeamManager teamManager;
     private Player player;
     private BukkitTask task;
+    private Messager messager = StrikeGame.getInstance().getMessager();
 
     public TeamSelectGui(Player player) {
         this.player = player;
         teamManager = StrikeGame.getInstance().getTeamManager();
-        this.gui = Bukkit.createInventory(null, 9*1, "Выберите команду");
+        this.gui = Bukkit.createInventory(null, 9*1, messager.getMessage(Message.CHOOSE_COMMAND));
         this.startUpdate();
         this.player.openInventory(this.gui);
     }
@@ -41,13 +44,13 @@ public class TeamSelectGui {
             @Override
             public void run() {
                 cTButton = new ItemStack(Material.IRON_HELMET);
-                cTButton.setItemMeta(editToButtonMeta(cTButton.getItemMeta(), "§aКонтртеррористы", TeamType.COUNTER_TERRORISTS, true));
+                cTButton.setItemMeta(editToButtonMeta(cTButton.getItemMeta(), messager.getMessage(Message.COUNTER_TERRORISTS), TeamType.COUNTER_TERRORISTS, true));
 
                 tButton = new ItemStack(Material.LEATHER_HELMET);
-                tButton.setItemMeta(editToButtonMeta(tButton.getItemMeta(), "§aТеррористы", TeamType.TERRORISTS, true));
+                tButton.setItemMeta(editToButtonMeta(tButton.getItemMeta(), messager.getMessage(Message.TERRORISTS), TeamType.TERRORISTS, true));
 
                 vButton = new ItemStack(Material.ENDER_EYE);
-                vButton.setItemMeta(editToButtonMeta(vButton.getItemMeta(), "§aЗрители", TeamType.VIEWERS, false));
+                vButton.setItemMeta(editToButtonMeta(vButton.getItemMeta(), messager.getMessage(Message.VIEWERS), TeamType.VIEWERS, false));
 
                 gui.setItem(2, cTButton);
                 gui.setItem(4, vButton);
@@ -76,7 +79,7 @@ public class TeamSelectGui {
         result.setDisplayName(title);
         Date date = new Date();
         String time = date.getHours() + "§f:§a" + date.getMinutes() + "§f:§a" + date.getSeconds();
-        result.setLore(Arrays.asList("", "§fУчастников: §a" + (isRestrictedSize ? (count + "§f/§a" + maxPlayers):(count)), "§fВремя: §a" + time));
+        result.setLore(Arrays.asList("", String.format(messager.getMessage(Message.MEMBERS_COUNT_IN_ROOM), (isRestrictedSize ? (count + "§f/§a" + maxPlayers):(""+count))), "§fВремя: §a" + time));
         for(ItemFlag flag : ItemFlag.values()) {
             if(flag == null) continue;
             if(result.hasItemFlag(flag)) continue;

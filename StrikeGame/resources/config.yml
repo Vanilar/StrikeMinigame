@@ -2,3 +2,17 @@ settings:
   teams:
     max-team-size: 5; #Максимальное число игроков в команде
     change-team-delay: 60; #В секундах
+messages:
+  connect-to-lobby: ""
+  server-is-full: "§fСервер §a§lпереполнен§r§f!"
+  choose-command: "Выберите команду"
+  reopen-choose-command-menu: "Через §a%d §fсекунд меню откроется §aвновь"
+  plugin-prefix: "§f[§aStrike§f]"
+  player-choose-counter-terrorists-command: "Вы выбрали команду §aконтртеррористов"
+  player-choose-terrorists-command: "Вы выбрали команду §aтеррористов"
+  player-choose-viewers-command: "Вы выбрали команду §aзрителей"
+  counter-terrorists: "§aКонтртеррористы"
+  terrorists: "§aТеррористы"
+  viewers: "§aЗрители"
+  members-count-in-room: "§fУчастников: §a%s"
+
