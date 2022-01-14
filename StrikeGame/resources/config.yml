@@ -1,0 +1,4 @@
+settings:
+  teams:
+    max-team-size: 5; #Максимальное число игроков в команде
+    change-team-delay: 60; #В секундах

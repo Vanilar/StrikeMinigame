@@ -1,0 +1,7 @@
+name: StrikeLobby
+main: me.vanilar.projects.strike.lobby.Main
+version: 0.1
+commands:
+  strikelobby:
+    description: main command
+    usage: /<commad> arguments

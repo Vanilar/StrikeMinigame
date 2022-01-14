@@ -1,0 +1,7 @@
+name: StrikeGame
+main: me.vanilar.projects.strike.StrikeModule
+version: 0.1
+commands:
+  strikemodule:
+    description: main command
+    usage: /<commad> arguments
