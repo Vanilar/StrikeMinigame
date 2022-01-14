@@ -1,6 +1,6 @@
 package me.vanilar.projects.strike.listener;
 
-import me.vanilar.projects.strike.StrikeModule;
+import me.vanilar.projects.strike.StrikeGame;
 import me.vanilar.projects.strike.teams.TeamSelectGui;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -35,13 +35,13 @@ public class MainListener implements Listener {
             }
         }
         player.setGameMode(GameMode.SPECTATOR);
-        player.setMetadata("freeze", new FixedMetadataValue(StrikeModule.getInstance(), 1));
+        player.setMetadata("freeze", new FixedMetadataValue(StrikeGame.getInstance(), 1));
         new BukkitRunnable() {
             @Override
             public void run() {
                 guis.put(player.getName(), new TeamSelectGui(player));
             }
-        }.runTaskLater(StrikeModule.getInstance(), 20L);
+        }.runTaskLater(StrikeGame.getInstance(), 20L);
     }
 
     @EventHandler
@@ -78,7 +78,7 @@ public class MainListener implements Listener {
                 public void run() {
                     player.openInventory(guis.get(player.getName()).getGui());
                 }
-            }.runTaskLater(StrikeModule.getInstance(), 100L);
+            }.runTaskLater(StrikeGame.getInstance(), 100L);
         }
     }
 

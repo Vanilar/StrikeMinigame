@@ -8,5 +8,16 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://D:/Games/Servers/plugins/other/spigot-1.16.5.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://D:/Games/Servers/plugins/other/spigot-1.16.5.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>

@@ -1,5 +1,5 @@
 name: StrikeGame
-main: me.vanilar.projects.strike.StrikeModule
+main: me.vanilar.projects.strike.StrikeGame
 version: 0.1
 commands:
   strikemodule:

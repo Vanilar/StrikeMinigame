@@ -9,9 +9,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.io.IOException;
 
-public class StrikeModule extends JavaPlugin {
+public class StrikeGame extends JavaPlugin {
 
-    private static StrikeModule instance;
+    private static StrikeGame instance;
     private TeamManager teamManager;
     private MapsManager mapsManager;
 
@@ -43,7 +43,7 @@ public class StrikeModule extends JavaPlugin {
         this.getLogger().info("§6Module is disabled");
     }
 
-    public static StrikeModule getInstance() {
+    public static StrikeGame getInstance() {
         return instance;
     }
 

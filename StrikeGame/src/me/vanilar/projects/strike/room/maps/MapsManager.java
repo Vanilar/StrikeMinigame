@@ -1,7 +1,6 @@
 package me.vanilar.projects.strike.room.maps;
 
-import com.mysql.fabric.xmlrpc.base.Array;
-import me.vanilar.projects.strike.StrikeModule;
+import me.vanilar.projects.strike.StrikeGame;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -21,20 +20,20 @@ public class MapsManager {
     }
 
     private void loadMaps() {
-        this.file = new File(StrikeModule.getInstance().getDataFolder(), "maps.yml");
+        this.file = new File(StrikeGame.getInstance().getDataFolder(), "maps.yml");
         if(!file.exists()) {
-            StrikeModule.getInstance().saveResource("maps.yml", false);
+            StrikeGame.getInstance().saveResource("maps.yml", false);
         }
         this.mapsConfig = YamlConfiguration.loadConfiguration(file);
         if(!this.mapsConfig.isSet("maps.lobby")) {
-            StrikeModule.getInstance().getLogger().severe("Lobby map does not exists!");
-            StrikeModule.getInstance().getLogger().info("Disabling plugin!");
-            Bukkit.getPluginManager().disablePlugin(StrikeModule.getInstance());
+            StrikeGame.getInstance().getLogger().severe("Lobby map does not exists!");
+            StrikeGame.getInstance().getLogger().info("Disabling plugin!");
+            Bukkit.getPluginManager().disablePlugin(StrikeGame.getInstance());
         }
         Set<String> mapsIds = mapsConfig.getConfigurationSection("maps").getKeys(false);
         for(String mapId : mapsIds) {
             GameMap gameMap = new GameMap(mapsConfig.getConfigurationSection("maps."+mapId));
-            StrikeModule.getInstance().getLogger().info(PREFIX + "successful loaded map '" + gameMap.getId() + "'");
+            StrikeGame.getInstance().getLogger().info(PREFIX + "successful loaded map '" + gameMap.getId() + "'");
             this.maps.add(gameMap);
         }
     }

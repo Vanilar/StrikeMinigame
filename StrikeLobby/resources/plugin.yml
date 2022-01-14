@@ -1,5 +1,5 @@
 name: StrikeLobby
-main: me.vanilar.projects.strike.lobby.Main
+main: me.vanilar.projects.strike.lobby.StrikeLobby
 version: 0.1
 commands:
   strikelobby:

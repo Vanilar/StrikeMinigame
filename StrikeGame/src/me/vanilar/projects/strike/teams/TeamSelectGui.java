@@ -1,6 +1,6 @@
 package me.vanilar.projects.strike.teams;
 
-import me.vanilar.projects.strike.StrikeModule;
+import me.vanilar.projects.strike.StrikeGame;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -26,7 +26,7 @@ public class TeamSelectGui {
 
     public TeamSelectGui(Player player) {
         this.player = player;
-        teamManager = StrikeModule.getInstance().getTeamManager();
+        teamManager = StrikeGame.getInstance().getTeamManager();
         this.gui = Bukkit.createInventory(null, 9*1, "Выберите команду");
         this.startUpdate();
         this.player.openInventory(this.gui);
@@ -46,14 +46,14 @@ public class TeamSelectGui {
                 tButton = new ItemStack(Material.LEATHER_HELMET);
                 tButton.setItemMeta(editToButtonMeta(tButton.getItemMeta(), "§aТеррористы", TeamType.TERRORISTS, true));
 
-                vButton = new ItemStack(Material.EYE_OF_ENDER);
+                vButton = new ItemStack(Material.ENDER_EYE);
                 vButton.setItemMeta(editToButtonMeta(vButton.getItemMeta(), "§aЗрители", TeamType.VIEWERS, false));
 
                 gui.setItem(2, cTButton);
                 gui.setItem(4, vButton);
                 gui.setItem(6, tButton);
             }
-        }.runTaskTimer(StrikeModule.getInstance(), 20L, 20L);
+        }.runTaskTimer(StrikeGame.getInstance(), 20L, 20L);
     }
 
     private ItemMeta editToButtonMeta(ItemMeta meta, String title, TeamType type, boolean isRestrictedSize) {
