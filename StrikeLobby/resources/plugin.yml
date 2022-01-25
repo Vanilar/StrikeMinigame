@@ -1,6 +1,7 @@
 name: StrikeLobby
 main: me.vanilar.projects.strike.lobby.StrikeLobby
 version: 0.1
+api-version: 1.13
 commands:
   strikelobby:
     description: main command

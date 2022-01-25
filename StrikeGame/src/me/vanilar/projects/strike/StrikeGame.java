@@ -37,11 +37,11 @@ public class StrikeGame extends JavaPlugin {
                 }
             }
         }
-        Bukkit.getPluginManager().registerEvents(new MainListener(), this);
-        this.getCommand("lobby").setExecutor(new LobbyCommand());
         teamManager = new TeamManager(this.getConfig().getConfigurationSection("settings.teams"));
         mapsManager = new MapsManager();
-        messager = new Messager(this);
+        messager = new Messager(this.getConfig());
+        Bukkit.getPluginManager().registerEvents(new MainListener(), this);
+        this.getCommand("lobby").setExecutor(new LobbyCommand());
         this.getLogger().info("§aPlugin is enabled");
     }
     @Override

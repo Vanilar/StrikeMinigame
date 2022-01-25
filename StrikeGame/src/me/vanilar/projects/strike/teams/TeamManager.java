@@ -9,10 +9,10 @@ public class TeamManager {
     private HashMap<Player, TeamType> players = new HashMap<>();
     private HashMap<Player, Integer> cooldowns = new HashMap<>();
     private final Integer MAX_TEAM_SIZE;
+    private final Integer CHANGE_TEAM_DELAY;
     private int cTTeamPlayersCount = 0;
     private int tTeamPlayersCount = 0;
     private int vTeamPlayersCount = 0;
-    private final Integer CHANGE_TEAM_DELAY;
 
     public TeamManager(ConfigurationSection section) {
         this.MAX_TEAM_SIZE = section.getInt("max-team-size", 5);
@@ -22,6 +22,11 @@ public class TeamManager {
     public ChangeTeamResult changePlayerTeam(Player player, TeamType type) {
         if (this.players.isEmpty()) {
             return ChangeTeamResult.ERROR;
+        }
+        if (!this.cooldowns.isEmpty() && this.cooldowns.containsKey(player) &&
+                this.cooldowns.get(player) > CHANGE_TEAM_DELAY) {
+
+            return  ChangeTeamResult.DENY_BY_DELAY;
         }
         if (type == TeamType.COUNTER_TERRORISTS) {
             if((this.cTTeamPlayersCount+1) <= MAX_TEAM_SIZE) {
@@ -40,11 +45,6 @@ public class TeamManager {
             else {
                 return ChangeTeamResult.DENY_BY_COUNT;
             }
-        }
-        if (!this.cooldowns.isEmpty() && this.cooldowns.containsKey(player) &&
-            this.cooldowns.get(player) > CHANGE_TEAM_DELAY) {
-
-            return  ChangeTeamResult.DENY_BY_DELAY;
         }
 
         this.players.replace(player, type);

@@ -1,6 +1,8 @@
 package me.vanilar.projects.strike.listener;
 
 import me.vanilar.projects.strike.StrikeGame;
+import me.vanilar.projects.strike.room.maps.MapsManager;
+import me.vanilar.projects.strike.room.maps.gui.MapChooseGui;
 import me.vanilar.projects.strike.teams.TeamSelectGui;
 import me.vanilar.projects.strike.utils.Message;
 import me.vanilar.projects.strike.utils.Messager;
@@ -26,6 +28,7 @@ import java.util.HashMap;
 public class MainListener implements Listener {
     private HashMap<String, TeamSelectGui> guis = new HashMap<>();
     private Messager messager = StrikeGame.getInstance().getMessager();
+    private MapsManager mapsManager = StrikeGame.getInstance().getMapsManager();
     private final String PREFIX = messager.getMessage(Message.PLUGIN_PREFIX);
 
     @EventHandler
@@ -38,14 +41,30 @@ public class MainListener implements Listener {
                 return;
             }
         }
-        player.setGameMode(GameMode.SPECTATOR);
         player.setMetadata("freeze", new FixedMetadataValue(StrikeGame.getInstance(), 1));
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                guis.put(player.getName(), new TeamSelectGui(player));
-            }
-        }.runTaskLater(StrikeGame.getInstance(), 20L);
+        player.setGameMode(GameMode.SPECTATOR);
+        //========================
+        //Выбор карты голосованием
+        //========================
+
+        Inventory gui;
+        if(mapsManager.isPlayerHasMapGui(player.getName())) {
+            gui = mapsManager.getMapGui(player.getName()).getGui();
+        }
+        else {
+            MapChooseGui mapChooseGui = new MapChooseGui();
+            mapsManager.addMapGui(player.getName(), mapChooseGui);
+            gui = mapChooseGui.getGui();
+        }
+        player.openInventory(gui);
+
+
+//        new BukkitRunnable() {
+//            @Override
+//            public void run() {
+//                guis.put(player.getName(), new TeamSelectGui(player));
+//            }
+//        }.runTaskLater(StrikeGame.getInstance(), 20L);
     }
 
     @EventHandler
@@ -75,7 +94,7 @@ public class MainListener implements Listener {
     public void onInventoryClose(InventoryCloseEvent event) {
         HumanEntity player = event.getPlayer();
         if(event.getView().getTitle().equals(messager.getMessage(Message.CHOOSE_COMMAND))) {
-            int seconds = 5;
+            int seconds = 15;
             player.sendMessage(PREFIX+" "+String.format(messager.getMessage(Message.REOPEN_CHOOSE_COMMAND_MENU), seconds));
             new BukkitRunnable(){
                 @Override

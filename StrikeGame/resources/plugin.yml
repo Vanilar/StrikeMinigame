@@ -1,7 +1,11 @@
 name: StrikeGame
 main: me.vanilar.projects.strike.StrikeGame
 version: 0.1
+api-version: 1.13
 commands:
   strikemodule:
     description: main command
     usage: /<commad> arguments
+  lobby:
+    description: returns player to lobby
+    usage: /<command>

@@ -3,7 +3,7 @@ settings:
     max-team-size: 5; #Максимальное число игроков в команде
     change-team-delay: 60; #В секундах
 messages:
-  connect-to-lobby: ""
+  connect-to-lobby: "Через %d секунд вы переместитесь в лобби"
   server-is-full: "§fСервер §a§lпереполнен§r§f!"
   choose-command: "Выберите команду"
   reopen-choose-command-menu: "Через §a%d §fсекунд меню откроется §aвновь"
