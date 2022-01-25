@@ -1,0 +1,13 @@
+messages:
+  connect-to-lobby: "Через %d секунд вы переместитесь в лобби"
+  server-is-full: "§fСервер §a§lпереполнен§r§f!"
+  choose-command: "Выберите команду"
+  reopen-choose-command-menu: "Через §a%d §fсекунд меню откроется §aвновь"
+  plugin-prefix: "§f[§aStrike§f]"
+  player-choose-counter-terrorists-command: "Вы выбрали команду §aконтртеррористов"
+  player-choose-terrorists-command: "Вы выбрали команду §aтеррористов"
+  player-choose-viewers-command: "Вы выбрали команду §aзрителей"
+  counter-terrorists: "§aКонтртеррористы"
+  terrorists: "§aТеррористы"
+  viewers: "§aЗрители"
+  members-count-in-room: "§fУчастников: §a%s"
